@@ -2,6 +2,7 @@ import React from 'react'
 import { useSelector } from 'react-redux';
 import axios from 'axios';
 import { BASE_URL } from '../utils/constants.js';
+import UserCard from './UserCard.jsx';
 
 const Profile = () => {
     const user = useSelector(store => store.user);
@@ -31,7 +32,7 @@ const Profile = () => {
     }
 
   return (
-    <>
+    <div className='flex gap-4'>
         <div className="card card-dash w-96 shadow-xl">
             <div className="card-body">
                 <h2 className="card-title flex justify-center">Profile</h2>
@@ -84,7 +85,10 @@ const Profile = () => {
                 </div>
             </div>
         </div>
-    </>
+        <div>
+            <UserCard user={user}/>
+        </div>
+    </div>
   )
 }
 
