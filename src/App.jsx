@@ -4,6 +4,7 @@ import Login from "./components/Login.jsx"
 import Profile from "./components/Profile.jsx"
 import Feed from "./components/Feed.jsx"
 import Connections from "./components/Connections.jsx"
+import Chat from "./components/Chat.jsx"
 import { Provider } from "react-redux"
 import appStore from "./utils/appStore.js"
 import Requests from "./components/Requests.jsx"
@@ -22,6 +23,7 @@ function App() {
             <Route path="/profile" element={<Profile />} />
             <Route path="/connections" element={<Connections />} />
             <Route path="/requests" element={<Requests />} />
+            <Route path="/chat/:targetUserId" element={<Chat />} />
           </Route>
         </Routes>
       </BrowserRouter>

@@ -3,6 +3,7 @@ import { BASE_URL } from '../utils/constants.js';
 import { useEffect } from 'react';
 import { addConnection } from '../utils/connectionsSlice.js';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 const Connections = () => {
     const dispatch = useDispatch();
@@ -11,7 +12,6 @@ const Connections = () => {
     const getConnections = async () => {
         try {
             const res = await axios.get(`${BASE_URL}/user/connections`, {withCredentials: true})
-            console.log(res.data);
             dispatch(addConnection(res.data?.data));
         } catch (err) {
             console.error(err);
@@ -30,16 +30,21 @@ const Connections = () => {
         <div>Connections</div>
         {connections && connections.map((connection) => {
             const {_id, firstName, lastName, photoUrl, about, age, gender} = connection;
-           return <div key={_id} className='flex gap-2 shadow-lg w-3/4 p-4'>
-                <div>
-                    <img className='rounded h-20 w-3/4' src={photoUrl} alt="user" />
+           return <div key={_id} className='flex justify-between gap-2 shadow-lg w-3/4 p-4'>
+                    <div className='flex gap-2 p-4'>
+                        <div>
+                            <img className='rounded h-20 w-3/4' src={photoUrl} alt="user" />
+                        </div>
+                        <div>
+                            <h3>{firstName} {lastName}</h3>
+                            {age && gender && <p>{`${age}, ${gender}`}</p>}
+                            <p>{about}</p>
+                        </div>
+                    </div>
+                    <div>
+                        <Link to={`/chat/${_id}`}><button className='btn btn-primary'>Chat</button></Link>
+                    </div>
                 </div>
-                <div>
-                    <h3>{firstName} {lastName}</h3>
-                    {age && gender && <p>{`${age}, ${gender}`}</p>}
-                    <p>{about}</p>
-                </div>
-            </div>
         })}
     </>
   )
